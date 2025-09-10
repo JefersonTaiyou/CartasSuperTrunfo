@@ -7,21 +7,24 @@
  > Área (em km²). Tipo: float 
  > PIB. Tipo: float
  > Número de Pontos Turísticos. Tipo: int
+
+
+ ---- MUDANÇA NIVEL INTERMEDIARIO
+ > Calcular a Densidade Populacional: Divida a população da cidade pela sua área. O resultado será a densidade populacional, que representa o número de habitantes por quilômetro quadrado. Armazene esse valor em uma variável do tipo float.
+ 
+ > Calcular o PIB per Capita: Divida o PIB da cidade pela sua população. O resultado será o PIB per capita, que indica a riqueza média por pessoa na cidade. Armazene esse valor em uma variável do tipo float.
+ 
+ > Exibir os Resultados: Além de exibir as informações lidas do usuário (como no nível básico), seu programa também deve exibir a densidade populacional e o PIB per capita calculados para cada cidade. Formate os valores de ponto flutuante com duas casas decimais.
 */
 
 #include <stdio.h>
 
-// Desafio Super Trunfo - Países
-// Tema 1 - Cadastro das cartas
-// Objetivo: No nível novato você deve criar as cartas representando as cidades utilizando scanf para entrada de dados e printf para exibir as informações.
-
 char UF1, UF2;
 char nomeCidade1[50],nomeCidade2[50],CodUF1[5],CodUF2[5];
-float Area1, Area2, PIB1, PIB2;
+float Area1, Area2, PIB1, PIB2, DensPop1, DensPop2, PIBC1, PIBC2;
 int Populacao1, Populacao2, Turistico1, Turistico2;
 
-int main() {
-  //Solicita a entrada dos dados da 1ª Carta e depois repete solicitando os da 2ª Carta
+int main(){
   for (int i = 0; i < 2; i++) {
     printf("\nDigite a Inicial do Estado %d: ", i + 1);
     fflush(stdin);
@@ -88,12 +91,26 @@ int main() {
     Área: 1521.11 km²
     PIB: 699.28 bilhões de reais
     Número de Pontos Turísticos: 50
+    Densidade Populacional: 8102.47 hab/km²
+    PIB per Capita: 56724.32 reais
   */
 
-  //Após pegar todos os dados das 2 cartas, apresenta na tela todas as inforçaões formatadas de ambas as cartas
+  ;
+
   for (int i = 0; i < 2; i++) {
     printf("\nCarta %d: ", i + 1);
     if (i == 0) {
+      DensPop1 = (float)Populacao1 / Area1;
+      /*
+        Porque eu estou multiplicando PIB1 * 1e9??
+        durante os testes, eu percebi que estava tudo funcionando certinho,
+        no entando o valor de PIBC que era a conta, estava retornando 0
+        a principio achei q era erro, porem analisando bem a conta,
+        percebi que PIB estava sendo recebido como centena, sendo que era bilhoes
+        portanto, na hora da divisão de centena por milhão da população, ele acabava zerando
+        ai eu pesquisei como converter para bilhões o valor digitado no scanf e encontro esse 1e9 e deu certo
+      */
+      PIBC1 = (float)(PIB1 *= 1e9) / (Populacao1);
       printf("\nEstado: %c", UF1);
       printf("\nCodigo: %s", CodUF1);
       printf("\nNome da Cidade: %s", nomeCidade1);
@@ -101,7 +118,11 @@ int main() {
       printf("\nArea: %.2f km^2", Area1);
       printf("\nPIB: %.2f Bilhoes de R$", PIB1);
       printf("\nNum. de Pontos Turisticos: %d\n", Turistico1);
+      printf("\nDensidade Populacional: %.2f hab/km^2", DensPop1);
+      printf("\nPIB per Capita: %.2f R$\n", PIBC1);
     } else {
+      DensPop2 = (float)Populacao2 / Area2;
+      PIBC2 = (float)(PIB2 *= 1e9) / Populacao2;
       printf("\nEstado: %c", UF2);
       printf("\nCodigo: %s", CodUF2);
       printf("\nNome da Cidade: %s", nomeCidade2);
@@ -109,7 +130,9 @@ int main() {
       printf("\nArea: %.2f km^2", Area2);
       printf("\nPIB: %.2f Bilhoes de R$", PIB2);
       printf("\nNum. de Pontos Turisticos: %d\n", Turistico2);
+      printf("\nDensidade Populacional: %.2f hab/km^2", DensPop2);
+      printf("\nPIB per Capita: %.2f R$\n", PIBC2);
     }
   }
   return 0;
-} 
+}
